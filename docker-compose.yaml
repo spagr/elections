@@ -14,7 +14,8 @@ services:
       - "1443:443"
 
   php:
-    image: registry.gitlab.com/spagr/dev-stack/php-8.1.1-fpm-nginx-dev:latest
+    image: registry.gitlab.com/spagr/dev-stack/php-8.1.1-fpm-nginx-base:latest
+#    image: registry.gitlab.com/spagr/dev-stack/php-8.1.1-fpm-nginx-dev:latest
 #    build:
 #      context: ./.docker/php
 #      target: php_base
