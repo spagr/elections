@@ -52,16 +52,12 @@ class ElectionResultsFacade
             }
         }
 
-        dump($result);
-
         $this->resultStorage->setCountedPartiesVotes(
             array_map(
                 fn (array $parties): array => array_map(fn (array $votes): int => array_sum($votes), $parties),
                 $result,
             ),
         );
-
-        dump($this->resultStorage->getCountedPartiesVotes());
     }
 
     private function getTotalVotes(): array
