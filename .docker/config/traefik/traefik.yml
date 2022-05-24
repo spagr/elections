@@ -1,0 +1,51 @@
+## traefik.yml
+# http:
+#   routers:
+#     traefik:
+#       rule: "Host(`traefik.nelisa.lo`)"
+#       service: "api@internal"
+#       tls:
+#         domains:
+#           - main: "nelisa.lo"
+#             sans:
+#               - "*.nelisa.lo"
+
+# API and dashboard configuration
+api:
+  insecure: true
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: info@nelisa.lo
+      storage: letsencrypt/acme.json
+      tlsChallenge: {}
+entrypoints:
+  web:
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+    address: :80
+  websecure:
+    address: :443
+
+# Set log level
+log:
+  level: DEBUG
+
+# Docker configuration backend
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    watch: true
+    exposedByDefault: false
+
+  file:
+    filename: /etc/traefik/dynamic/config.yml
+    watch: true
+serversTransport:
+  insecureSkipVerify: true
+  rootCAs:
+    - "/etc/ssl/minica.crt"

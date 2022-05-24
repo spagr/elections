@@ -1,0 +1,6 @@
+tls:
+  certificates:
+    - certFile: /etc/ssl/_.nelisa.local/cert.pem
+      keyFile: /etc/ssl/_.nelisa.local/key.pem
+    - certFile: /etc/ssl/_.startupjobs.local/cert.pem
+      keyFile: /etc/ssl/_.startupjobs.local/key.pem

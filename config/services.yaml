@@ -11,8 +11,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
@@ -20,5 +18,23 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Facade\ElectionResultsFacade:
+      arguments:
+        $pst4FileUrl: '%env(T4_FILE_URL)%'
+        $pst4PFileUrl: '%env(T4_P_FILE_URL)%'
+
+    App\DataFixtures\DistrictFixtures:
+      arguments:
+        $fileUrl: '%env(DISTRICTS_FILE_URL)%'
+
+    App\DataFixtures\MunicipalityFixtures:
+      arguments:
+        $fileUrl: '%env(MUNICIPALITIES_FILE_URL)%'
+
+    App\DataFixtures\PartyFixtures:
+      arguments:
+        $fileUrl: '%env(PARTIES_FILE_URL)%'
+
+    App\Handler\FileHandler:
+      arguments:
+        $varFolder: '%kernel.project_dir%/var'
